@@ -1,0 +1,27 @@
+# Refer to https://github.com/redhat-cop/ah_configuration/tree/devel/roles/group
+# for documentation and additional parameter information
+
+---
+ah_groups:
+  - name: "container-admins"
+    perms: 
+      - "change_containernamespace_perms"
+      - "change_container"
+      - "change_image_tag"
+      - "create_container"
+      - "push_container"
+      - "delete_containerrepository"
+    state: "{{ target_state }}"
+
+  - name: "collection-admins"
+    perms: 
+      - "add_namespace"
+      - "change_namespace"
+      - "upload_to_namespace"
+      - "delete_namespace"
+      - "modify_ansible_repo_content"
+      - "delete_collection"
+      - "change_collectionremote"
+      - "view_collectionremote"
+    state: "{{ target_state }}"
+...

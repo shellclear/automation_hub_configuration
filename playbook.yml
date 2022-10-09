@@ -1,0 +1,98 @@
+---
+- name: "Playbook to configure Private Automation Hub"
+  hosts: "localhost"
+  connection: "local"
+  gather_facts: false
+
+  vars:
+    target_state: "present"
+    ah_configuration_secure_logging: true
+    ah_configuration_async_retries: 100
+
+  vars_files:
+    - "vars/all/vault_all.yml"
+    - "vars/{{ env }}/vault_{{ env }}.yml"
+
+  collections:
+    - "redhat_cop.ah_configuration"
+
+  pre_tasks:
+    - name: "Include Vars"
+      ansible.builtin.include_vars: "vars/{{ env }}/pah_vars.yml"
+      tags:
+        - "always"
+
+  tasks:
+    - name: "Include task to manage private automation hub groups"
+      ansible.builtin.include_tasks: "tasks/manage_groups.yml"
+      tags:
+        - "groups"
+
+    - name: "Include task to manage private automation hub users"
+      ansible.builtin.include_tasks: "tasks/manage_users.yml"
+      tags:
+        - "users"
+
+    # All tasks below here may need to be re-ordered so they
+    # execute in a particular order.
+    - name: "Include task for managing collection namespaces"
+      ansible.builtin.include_tasks: " tasks/manage_collection_namespaces.yml"
+      tags:
+        - "namespaces"
+
+    - name: "Include task for collection publishing"
+      ansible.builtin.include_tasks: "tasks/manage_collection_publish.yml"
+      tags:
+        - "publish"
+
+    # This task wont create a new ee repo. Before to run this task push an image
+    # to create the new LOCAL type container image namespace on the private hub.
+    # The task only changes the properties from a namespace container image repo.
+    - name: "Include task to manage execution enviornment namespaces"
+      ansible.builtin.include_tasks: "tasks/manage_ee_namespaces.yml"
+      tags:
+        - "ee_namespaces"
+
+    # This task wont create a new LOCAL type container image inside the
+    # ee namespace. The task only changes the tags for container image
+    # inside LOCAL namespace repo.
+    - name: "Include task for execution environment images"
+      ansible.builtin.include_tasks: "tasks/manage_ee_images.yml"
+      tags:
+        - "ee_images"
+
+    - name: "Include task to manage execution environment registries"
+      ansible.builtin.include_tasks: "tasks/manage_ee_registries.yml"
+      tags:
+        - "registries"
+
+    - name: "Include task to manage execution environment registry indices"
+      ansible.builtin.include_tasks: "tasks/manage_ee_registry_indices.yml"
+      tags:
+        - "indices"
+
+    - name: "Include task to manage execution environment repositories"
+      ansible.builtin.include_tasks: "tasks/manage_ee_repositories.yml"
+      tags:
+        - "ee_repos"
+
+    - name: "Include task to manage collection repositories"
+      ansible.builtin.include_tasks: "tasks/manage_repository.yml"
+      tags:
+        - "repos"
+
+    - name: "Include task to manage collections repositories sync"
+      ansible.builtin.include_tasks: "tasks/manage_repository_sync.yml"
+      tags:
+        - "reposync"
+
+    - name: "Include task to manage execution environment repository sync"
+      ansible.builtin.include_tasks: "tasks/manage_ee_repository_sync.yml"
+      tags:
+        - "ee_reposync"
+
+    - name: "Include task to manage execution environment registry sync"
+      ansible.builtin.include_tasks: "tasks/manage_ee_registry_sync.yml"
+      tags:
+        - "regsync"
+...

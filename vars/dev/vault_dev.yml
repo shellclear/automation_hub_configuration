@@ -1,0 +1,14 @@
+---
+# DEV ENV
+
+# token to download container images from the registry.redhat.io
+rhn_registry_pass: "PUT_TOKEN_HERE" 
+
+# ah_users:
+user1_pass: user1r@123
+user2_pass: user2@123
+
+# ah_credentials
+ah_pass: admin
+...
+

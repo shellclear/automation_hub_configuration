@@ -1,0 +1,7 @@
+---
+ah_host: "hub.example.com"
+ah_username: "admin"
+ah_password: "{{ ah_pass }}"
+ah_validate_certs: false
+ah_path_prefix: "galaxy"
+...

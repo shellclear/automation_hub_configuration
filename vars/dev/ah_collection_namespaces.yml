@@ -1,0 +1,15 @@
+# Refer to https://github.com/redhat-cop/ah_configuration/tree/devel/roles/namespace
+# for documentation and additional parameter information
+
+---
+ah_namespaces:
+  - name: "my_collection"
+    description:  "my_collection namespace"
+    company: "my_company"
+    email: "collection-dev@examplecom"
+    resources: "# A namespace dedicated for my collections"
+    links:
+      - name: "Git link"
+        url: "https://git.example.com/collections"
+    state: "{{ target_state }}"
+...

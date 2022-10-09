@@ -1,0 +1,10 @@
+---
+# ALL ENV
+ 
+# OS root user:
+ansible_password: "root"
+
+# token to download collection from console.redhat.com
+cloud_token: "PUT_TOKEN_HERE"
+...
+

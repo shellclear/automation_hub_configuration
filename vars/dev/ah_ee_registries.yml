@@ -1,0 +1,11 @@
+# Refer to https://github.com/redhat-cop/ah_configuration/tree/devel/roles/ee_registry
+# for documentation and additional parameter information
+
+---
+ah_ee_registries:
+  - name: "Red Hat Ecosystem Catalog"
+    url: "https://registry.redhat.io"
+    username: "00000000|ah-registry-sync-user"
+    password: "{{ rhn_registry_pass }}"
+    state: "{{ target_state }}"
+...

@@ -1,0 +1,15 @@
+# Refer to https://github.com/redhat-cop/ah_configuration/tree/devel/roles/ee_repository
+# for documentation and additional parameter information
+
+---
+ah_ee_repositories:
+  - name: "ansible-automation-platform/ee-minimal-rhel8"
+    description: "Ansible Automation Platform minimal execution environment"
+    readme: "ee-minimal is an automation execution environment for Red Hat Ansible Automation Platform."
+    registry: "Red Hat Ecosystem Catalog"
+    upstream_name: "ansible-automation-platform/ee-minimal-rhel8"
+    exclude_tags: 
+      - "*-source"
+      - "latest"
+    state: "{{ target_state }}"
+...
